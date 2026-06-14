@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.sqlite3
+data/
+.env
+import_check.json
+import_reports/
+*.sqlite
+*.db

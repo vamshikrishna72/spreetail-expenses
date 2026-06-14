@@ -1,5 +1,21 @@
 # Decision Log
 
+## 0. Product Name and Positioning
+
+Options considered:
+
+- Generic shared expenses app.
+- Splitwise-style clone.
+- A product centered on explainability and anomaly handling.
+
+Decision:
+
+Name the app `LedgerLens` and position it around explainable cleanup of messy expense data.
+
+Reason:
+
+The assignment is not only about splitting expenses. The evaluation focuses on messy data, traceability, and explaining decisions live. The name and dashboard make that product thinking visible.
+
 ## 1. Stack
 
 Options considered:
@@ -127,4 +143,52 @@ Store settlement rows in a separate `settlements` table.
 Reason:
 
 Payments between members affect balances differently from shared expenses.
+
+## 9. Full CRUD Operations for Groups and Membership Windows
+
+Options considered:
+- Keep membership windows hardcoded in the Python script.
+- Add dynamic DB management with complete UI CRUD views to create groups, members, and memberships.
+
+Decision:
+Implement full CRUD capability for groups, members, and memberships in the UI.
+
+Reason:
+To satisfy the constraint that membership can change over time and that groups can be created and managed dynamically, the app must let users manage groups and members' active periods in the UI rather than in the code itself.
+
+## 10. Dynamic Expense splitting and Settlement creation in the UI
+
+Options considered:
+- Only allow importing expenses from the CSV.
+- Add full UI capability to record, edit, and delete expenses and settlements dynamically.
+
+Decision:
+Add forms for new and edited expenses (supporting all split types dynamically) and settlements (with delete actions).
+
+Reason:
+The minimum product requirements specify that the app must let users create and manage expenses (supporting equal, unequal, share, percentage splits) and record payments/settlements. Doing this dynamically in the UI ensures full coverage of the app's requirements.
+
+## 11. String Replacement vs Python f-string Templating for Javascript code
+
+Options considered:
+- Escape all curly braces in JavaScript f-strings (`{{` and `}}`).
+- Use non-f-string templates and execute `.replace()` calls in Python.
+
+Decision:
+Use non-f-string template strings with placeholder tokens (e.g. `__TITLE__`, `__DESC_VAL__`) and perform `.replace()` operations.
+
+Reason:
+Using f-strings for HTML templates that contain heavy inline JavaScript functions leads to high syntax error risks, since JavaScript single curly braces collide with Python's format bracket syntax. Using token replacements completely isolates Python string formatting from JavaScript syntax.
+
+## 12. Manual Status Toggling for Anomaly/Duplicate Override
+
+Options considered:
+- Only show anomaly lists as a static audit log.
+- Add inline "Toggle Status" (Active/Ignored) buttons for duplicate or conflict rows on the Trace and Anomalies pages.
+
+Decision:
+Provide a "Set Ignore" / "Set Active" status toggle button on the Trace page and the Anomalies page.
+
+Reason:
+Meera explicitly requested to be able to approve anything the app deletes or changes. Toggling the status of imported rows dynamically adjusts their inclusion in balance calculations in real-time, allowing users to override automated importer decisions manually.
 

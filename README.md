@@ -1,6 +1,6 @@
-# Spreetail Shared Expenses App
+# LedgerLens - Spreetail Shared Expenses App
 
-A small shared-expenses app for the Spreetail assignment. It imports the provided `expenses_export.csv` without manual edits, detects messy data, records an import report, calculates balances, and suggests who should pay whom.
+LedgerLens is an explainable shared-expenses cleanup app for the Spreetail assignment. It imports the provided `expenses_export.csv` without manual edits, detects messy data, records an import report, calculates balances, and suggests who should pay whom.
 
 ## Features
 
@@ -12,6 +12,7 @@ A small shared-expenses app for the Spreetail assignment. It imports the provide
 - Individual balance summary.
 - Suggested simplified settlements.
 - Expense trace page showing which expenses make up balances.
+- Data quality board and membership timeline on the dashboard.
 
 ## Demo Login
 
@@ -59,4 +60,3 @@ The app reads `PORT` from the environment. Set `SECRET_KEY` in production.
 ## AI Used
 
 I used Codex/ChatGPT as a development collaborator for planning, anomaly review, implementation, documentation, and debugging. I remained responsible for validating the importer behavior, tests, and final decisions. Details are in `AI_USAGE.md`.
-

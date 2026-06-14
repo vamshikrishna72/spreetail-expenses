@@ -1,7 +1,7 @@
 {
   "import_run_id": 1,
   "source_file": "expenses_export.csv",
-  "imported_at": "2026-06-14T16:55:15Z",
+  "imported_at": "2026-06-14T17:02:36Z",
   "usd_to_inr": "83.00",
   "rows_seen": 42,
   "rows_imported": 39,

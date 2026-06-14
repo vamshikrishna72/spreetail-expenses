@@ -2,27 +2,28 @@
 
 ## Product Scope
 
-The app solves the assignment for one group: `Spreetail Flatmates`.
+LedgerLens solves the assignment for one group: `Spreetail Flatmates`.
 
 Implemented:
 
 - Login.
-- Group and member records.
-- Membership windows for people joining/leaving.
+- Group and member records (with full CRUD UI for creating groups, members, and managing memberships).
+- Membership windows for people joining/leaving (queried dynamically from the SQLite DB memberships table).
 - Expense import from the supplied CSV.
-- Equal, unequal, share, and percentage splits.
+- Equal, unequal, share, and percentage splits (both for imported CSV and manual expenses, calculated dynamically).
 - USD to INR conversion.
-- Settlement/payment records.
+- Settlement/payment records (with full CRUD UI to record and delete payments).
 - Group balance summary.
 - Individual traceability through the expense trace page.
 - Import report with every detected anomaly and action.
+- Dashboard-level data quality board and membership timeline (queried dynamically).
+- Manual approval and override workflow (letting users toggle active/ignored status of rows on both the Anomalies and Trace pages to override importer decisions and recalculate balances in real-time).
 
 Not implemented:
 
 - Password reset.
 - User-created exchange-rate tables.
 - Multi-currency settlement suggestions.
-- Manual approval workflow for changing importer decisions. The report surfaces changes for review, but the current version applies the documented policy immediately.
 
 ## Membership Policy
 
@@ -75,4 +76,3 @@ Tables:
 - `settlements`: payments between members.
 
 The schema is relational and uses foreign keys between import runs, groups, members, expenses, splits, settlements, and anomalies.
-

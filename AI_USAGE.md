@@ -27,6 +27,8 @@
 
 4. The first implementation emitted a Python `datetime.utcnow()` deprecation warning. I replaced it with timezone-aware UTC timestamps.
 
+5. The AI attempted to use Python f-strings to format HTML templates containing inline JavaScript. This caused Python syntax errors because JavaScript's single curly braces collided with Python f-string formatting. I corrected this by converting the templates to plain strings and performing token replacements (`.replace()`), isolating Python string formatting from JS syntax.
+
 ## Engineer-of-Record Note
 
 AI helped produce the project, but the submitted behavior is documented in `SCOPE.md` and tested in `tests.py`. Any policy can be explained and changed because the importer logic is intentionally small and explicit.

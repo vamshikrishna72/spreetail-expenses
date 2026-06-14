@@ -1,7 +1,7 @@
 # Import Report
 
 - Source file: `expenses_export.csv`
-- Imported at: `2026-06-14T16:55:15Z`
+- Imported at: `2026-06-14T17:02:36Z`
 - USD to INR rate: `83.00`
 - Rows seen: `42`
 - Rows imported: `39`

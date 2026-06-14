@@ -564,6 +564,13 @@ def init_db():
                 """,
                 (group_id, member_id, window[0], window[1]),
             )
+    try:
+        with connect() as conn:
+            expense_count = conn.execute("SELECT COUNT(*) as count FROM expenses").fetchone()["count"]
+        if expense_count == 0:
+            import_csv()
+    except Exception as e:
+        pass
 
 
 def password_hash(password):

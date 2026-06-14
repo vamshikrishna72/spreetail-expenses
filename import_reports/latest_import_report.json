@@ -1,0 +1,749 @@
+{
+  "import_run_id": 1,
+  "source_file": "expenses_export.csv",
+  "imported_at": "2026-06-14T16:54:07Z",
+  "usd_to_inr": "83.00",
+  "rows_seen": 42,
+  "rows_imported": 39,
+  "rows_skipped": 3,
+  "anomalies": [
+    {
+      "row_number": 6,
+      "code": "duplicate_expense",
+      "severity": "warning",
+      "message": "Duplicate-looking row with same date, people, currency, and amount.",
+      "action": "Skipped later duplicate and kept first row.",
+      "raw_row": {
+        "date": "2026-02-08",
+        "description": "dinner - marina bites",
+        "paid_by": "Dev",
+        "amount": "3200",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 7,
+      "code": "amount_normalized",
+      "severity": "info",
+      "message": "Amount had comma or whitespace formatting.",
+      "action": "Parsed to Decimal and stored a two-decimal INR value.",
+      "raw_row": {
+        "date": "2026-02-10",
+        "description": "Electricity Feb",
+        "paid_by": "Aisha",
+        "amount": "1,200",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 9,
+      "code": "name_normalized",
+      "severity": "info",
+      "message": "Normalized payer 'priya' to 'Priya'.",
+      "action": "Used canonical member name.",
+      "raw_row": {
+        "date": "2026-02-14",
+        "description": "Movie night snacks",
+        "paid_by": "priya",
+        "amount": "640",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya",
+        "split_details": "",
+        "notes": "Meera skipped"
+      }
+    },
+    {
+      "row_number": 11,
+      "code": "name_normalized",
+      "severity": "info",
+      "message": "Normalized payer 'Priya S' to 'Priya'.",
+      "action": "Used canonical member name.",
+      "raw_row": {
+        "date": "2026-02-18",
+        "description": "Groceries DMart",
+        "paid_by": "Priya S",
+        "amount": "1875",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 13,
+      "code": "missing_payer",
+      "severity": "error",
+      "message": "Expense has no paid_by value.",
+      "action": "Skipped row; user must correct payer.",
+      "raw_row": {
+        "date": "2026-02-22",
+        "description": "House cleaning supplies",
+        "paid_by": "",
+        "amount": "780",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "can't remember who paid"
+      }
+    },
+    {
+      "row_number": 14,
+      "code": "settlement_not_expense",
+      "severity": "warning",
+      "message": "Row appears to be a payment/settlement, not an expense.",
+      "action": "Recorded in settlements table and excluded from expense splits.",
+      "raw_row": {
+        "date": "2026-02-25",
+        "description": "Rohan paid Aisha back",
+        "paid_by": "Rohan",
+        "amount": "5000",
+        "currency": "INR",
+        "split_type": "",
+        "split_with": "Aisha",
+        "split_details": "",
+        "notes": "this is a settlement not an expense??"
+      }
+    },
+    {
+      "row_number": 15,
+      "code": "percentage_total_not_100",
+      "severity": "warning",
+      "message": "Percentages total 110%, not 100%.",
+      "action": "Normalized percentages proportionally to 100%.",
+      "raw_row": {
+        "date": "2026-02-28",
+        "description": "Pizza Friday",
+        "paid_by": "Aisha",
+        "amount": "1440",
+        "currency": "INR",
+        "split_type": "percentage",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "Aisha 30%; Rohan 30%; Priya 30%; Meera 20%",
+        "notes": "percentages might be off"
+      }
+    },
+    {
+      "row_number": 16,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "01/03/2026",
+        "description": "March rent",
+        "paid_by": "Aisha",
+        "amount": "48000",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 17,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "03/03/2026",
+        "description": "Groceries BigBasket",
+        "paid_by": "Meera",
+        "amount": "2810",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 18,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "05/03/2026",
+        "description": "Wifi bill Mar",
+        "paid_by": "Rohan",
+        "amount": "1199",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 19,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "08/03/2026",
+        "description": "Goa flights",
+        "paid_by": "Aisha",
+        "amount": "32400",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "trip starts!"
+      }
+    },
+    {
+      "row_number": 20,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "09/03/2026",
+        "description": "Goa villa booking",
+        "paid_by": "Dev",
+        "amount": "540",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "booked on intl site"
+      }
+    },
+    {
+      "row_number": 20,
+      "code": "currency_converted",
+      "severity": "info",
+      "message": "Converted USD to INR at 83.00.",
+      "action": "Stored original currency and converted INR amount.",
+      "raw_row": {
+        "date": "09/03/2026",
+        "description": "Goa villa booking",
+        "paid_by": "Dev",
+        "amount": "540",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "booked on intl site"
+      }
+    },
+    {
+      "row_number": 21,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "10/03/2026",
+        "description": "Beach shack lunch",
+        "paid_by": "Rohan",
+        "amount": "84",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 21,
+      "code": "currency_converted",
+      "severity": "info",
+      "message": "Converted USD to INR at 83.00.",
+      "action": "Stored original currency and converted INR amount.",
+      "raw_row": {
+        "date": "10/03/2026",
+        "description": "Beach shack lunch",
+        "paid_by": "Rohan",
+        "amount": "84",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 22,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "10/03/2026",
+        "description": "Scooter rentals",
+        "paid_by": "Priya",
+        "amount": "3600",
+        "currency": "INR",
+        "split_type": "share",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "Aisha 1; Rohan 2; Priya 1; Dev 2",
+        "notes": "Rohan and Dev took the bigger ones"
+      }
+    },
+    {
+      "row_number": 23,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Parasailing",
+        "paid_by": "Dev",
+        "amount": "150",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev;Dev's friend Kabir",
+        "split_details": "",
+        "notes": "Kabir joined for the day"
+      }
+    },
+    {
+      "row_number": 23,
+      "code": "split_people_normalized",
+      "severity": "info",
+      "message": "Normalized split participant names.",
+      "action": "Used canonical member names.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Parasailing",
+        "paid_by": "Dev",
+        "amount": "150",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev;Dev's friend Kabir",
+        "split_details": "",
+        "notes": "Kabir joined for the day"
+      }
+    },
+    {
+      "row_number": 23,
+      "code": "currency_converted",
+      "severity": "info",
+      "message": "Converted USD to INR at 83.00.",
+      "action": "Stored original currency and converted INR amount.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Parasailing",
+        "paid_by": "Dev",
+        "amount": "150",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev;Dev's friend Kabir",
+        "split_details": "",
+        "notes": "Kabir joined for the day"
+      }
+    },
+    {
+      "row_number": 24,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Dinner at Thalassa",
+        "paid_by": "Aisha",
+        "amount": "2400",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 25,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Thalassa dinner",
+        "paid_by": "Rohan",
+        "amount": "2450",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "Aisha also logged this I think hers is wrong"
+      }
+    },
+    {
+      "row_number": 24,
+      "code": "near_duplicate_conflict",
+      "severity": "warning",
+      "message": "Possible duplicate has a conflicting amount.",
+      "action": "Superseded by later row with clearer note/context.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Dinner at Thalassa",
+        "paid_by": "Aisha",
+        "amount": "2400",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 25,
+      "code": "near_duplicate_conflict",
+      "severity": "warning",
+      "message": "Possible duplicate has a conflicting amount.",
+      "action": "Kept this row as active and marked earlier row superseded.",
+      "raw_row": {
+        "date": "11/03/2026",
+        "description": "Thalassa dinner",
+        "paid_by": "Rohan",
+        "amount": "2450",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "Aisha also logged this I think hers is wrong"
+      }
+    },
+    {
+      "row_number": 26,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "12/03/2026",
+        "description": "Parasailing refund",
+        "paid_by": "Dev",
+        "amount": "-30",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "one slot got cancelled"
+      }
+    },
+    {
+      "row_number": 26,
+      "code": "currency_converted",
+      "severity": "info",
+      "message": "Converted USD to INR at 83.00.",
+      "action": "Stored original currency and converted INR amount.",
+      "raw_row": {
+        "date": "12/03/2026",
+        "description": "Parasailing refund",
+        "paid_by": "Dev",
+        "amount": "-30",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "one slot got cancelled"
+      }
+    },
+    {
+      "row_number": 26,
+      "code": "negative_amount",
+      "severity": "warning",
+      "message": "Negative amount detected.",
+      "action": "Treated as refund/credit reducing the original obligation.",
+      "raw_row": {
+        "date": "12/03/2026",
+        "description": "Parasailing refund",
+        "paid_by": "Dev",
+        "amount": "-30",
+        "currency": "USD",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": "one slot got cancelled"
+      }
+    },
+    {
+      "row_number": 27,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Year inferred as 2026 from surrounding trip rows.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "Mar 14",
+        "description": "Airport cab",
+        "paid_by": "rohan ",
+        "amount": "1100",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 27,
+      "code": "name_normalized",
+      "severity": "info",
+      "message": "Normalized payer 'rohan' to 'Rohan'.",
+      "action": "Used canonical member name.",
+      "raw_row": {
+        "date": "Mar 14",
+        "description": "Airport cab",
+        "paid_by": "rohan ",
+        "amount": "1100",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Dev",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 28,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "15/03/2026",
+        "description": "Groceries DMart",
+        "paid_by": "Priya",
+        "amount": "2105",
+        "currency": "",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "forgot to set currency"
+      }
+    },
+    {
+      "row_number": 28,
+      "code": "missing_currency",
+      "severity": "warning",
+      "message": "Currency was blank.",
+      "action": "Defaulted to INR because all nearby home expenses are INR.",
+      "raw_row": {
+        "date": "15/03/2026",
+        "description": "Groceries DMart",
+        "paid_by": "Priya",
+        "amount": "2105",
+        "currency": "",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "forgot to set currency"
+      }
+    },
+    {
+      "row_number": 29,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "18/03/2026",
+        "description": "Electricity Mar",
+        "paid_by": "Aisha",
+        "amount": " 1450 ",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 29,
+      "code": "amount_normalized",
+      "severity": "info",
+      "message": "Amount had comma or whitespace formatting.",
+      "action": "Parsed to Decimal and stored a two-decimal INR value.",
+      "raw_row": {
+        "date": "18/03/2026",
+        "description": "Electricity Mar",
+        "paid_by": "Aisha",
+        "amount": " 1450 ",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 30,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "20/03/2026",
+        "description": "Maid salary Mar",
+        "paid_by": "Meera",
+        "amount": "3000",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 31,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "22/03/2026",
+        "description": "Dinner order Swiggy",
+        "paid_by": "Priya",
+        "amount": "0",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "counted twice earlier - fixing later"
+      }
+    },
+    {
+      "row_number": 31,
+      "code": "zero_amount",
+      "severity": "warning",
+      "message": "Zero amount expense detected.",
+      "action": "Skipped row because it has no financial effect.",
+      "raw_row": {
+        "date": "22/03/2026",
+        "description": "Dinner order Swiggy",
+        "paid_by": "Priya",
+        "amount": "0",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "counted twice earlier - fixing later"
+      }
+    },
+    {
+      "row_number": 32,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "25/03/2026",
+        "description": "Weekend brunch",
+        "paid_by": "Meera",
+        "amount": "2200",
+        "currency": "INR",
+        "split_type": "percentage",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "Aisha 30%; Rohan 30%; Priya 30%; Meera 20%",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 32,
+      "code": "percentage_total_not_100",
+      "severity": "warning",
+      "message": "Percentages total 110%, not 100%.",
+      "action": "Normalized percentages proportionally to 100%.",
+      "raw_row": {
+        "date": "25/03/2026",
+        "description": "Weekend brunch",
+        "paid_by": "Meera",
+        "amount": "2200",
+        "currency": "INR",
+        "split_type": "percentage",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "Aisha 30%; Rohan 30%; Priya 30%; Meera 20%",
+        "notes": ""
+      }
+    },
+    {
+      "row_number": 33,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Date normalized from DD/MM/YYYY format.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "28/03/2026",
+        "description": "Meera farewell dinner",
+        "paid_by": "Aisha",
+        "amount": "4800",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "Meera moving out Sunday :("
+      }
+    },
+    {
+      "row_number": 34,
+      "code": "date_normalized",
+      "severity": "info",
+      "message": "Ambiguous date 04/05/2026 treated as 2026-04-05 because surrounding rows describe April expenses.",
+      "action": "Stored normalized ISO date.",
+      "raw_row": {
+        "date": "04/05/2026",
+        "description": "Deep cleaning service",
+        "paid_by": "Rohan",
+        "amount": "2500",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya",
+        "split_details": "",
+        "notes": "is this April 5 or May 4? format is a mess"
+      }
+    },
+    {
+      "row_number": 36,
+      "code": "inactive_member_in_split",
+      "severity": "warning",
+      "message": "Inactive member(s) in split: Meera.",
+      "action": "Removed inactive members and recalculated the split.",
+      "raw_row": {
+        "date": "2026-04-02",
+        "description": "Groceries BigBasket",
+        "paid_by": "Priya",
+        "amount": "2640",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Meera",
+        "split_details": "",
+        "notes": "oops Meera still in the group list"
+      }
+    },
+    {
+      "row_number": 42,
+      "code": "split_details_on_equal",
+      "severity": "warning",
+      "message": "Equal split row also had split_details.",
+      "action": "Ignored split_details because split_type is equal.",
+      "raw_row": {
+        "date": "2026-04-18",
+        "description": "Furniture for common room",
+        "paid_by": "Aisha",
+        "amount": "12000",
+        "currency": "INR",
+        "split_type": "equal",
+        "split_with": "Aisha;Rohan;Priya;Sam",
+        "split_details": "Aisha 1; Rohan 1; Priya 1; Sam 1",
+        "notes": "split_type says equal but someone added shares anyway"
+      }
+    }
+  ]
+}
